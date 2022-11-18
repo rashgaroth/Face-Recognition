@@ -7,6 +7,17 @@ yarn-error.log*
 lerna-debug.log*
 .pnpm-debug.log*
 
+# Environment
+.env
+.env.development
+.env.production
+.env.local
+.env.staging
+
+build/
+out/
+yarn.lock
+
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 

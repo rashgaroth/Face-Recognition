@@ -1,0 +1,78 @@
+{
+  "root": true,
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "node": true,
+    "jest": true
+  },
+  "extends": [
+    // By extending from a plugin config, we can get recommended rules without having to add them manually.
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:import/recommended",
+    "plugin:jsx-a11y/recommended",
+    "plugin:@typescript-eslint/recommended",
+    // This disables the formatting rules in ESLint that Prettier is going to be responsible for handling.
+    // Make sure it"s always the last config, so it gets the chance to override other configs.
+    "eslint-config-prettier"
+  ],
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "moduleDirectory": ["node_modules", "src/"]
+      }
+    },
+    "react": {
+      "version": "detect"
+    }
+  },
+  "parserOptions": {
+    "ecmaFeatures": {
+      "experimentalObjectRestSpread": true,
+      "impliedStrict": true
+    },
+    "ecmaVersion": 12
+  },
+  "plugins": ["prettier", "react", "react-hooks"],
+  "rules": {
+    "react/jsx-filename-extension": 0,
+    "jsx-a11y/media-has-caption": 0,
+    "jsx-a11y/no-noninteractive-element-interactions": 0,
+    "jsx-a11y/click-events-have-key-events": 0,
+    "jsx-a11y/no-static-element-interactions": 0,
+    "no-param-reassign": 0,
+    "react/prop-types": 1,
+    "react/require-default-props": 0,
+    "react/no-array-index-key": 0,
+    "react/jsx-props-no-spreading": 0,
+    "react/forbid-prop-types": 0,
+    "import/order": 0,
+    "no-console": 0,
+    "jsx-a11y/anchor-is-valid": 0,
+    "prefer-destructuring": 0,
+    "no-shadow": 0,
+    "import/named": 0,
+    "import/no-unresolved": 0,
+    "@typescript-eslint/ban-ts-comment": 1,
+    "no-debugger":"off",
+    "no-unused-vars": [
+      1,
+      {
+        "ignoreRestSiblings": false
+      }
+    ],
+    "prettier/prettier": [
+      2,
+      {
+        "semi": false,
+        "tabWidth": 2,
+        "printWidth": 140,
+        "singleQuote": true,
+        "trailingComma": "none",
+        "endOfLine": "auto",
+        "jsxBracketSameLine": true
+      }
+    ]
+  }
+}
