@@ -10,11 +10,11 @@ export const colors = {
     dark: '#a22981'
   },
   text: {
-    primary: '#f7f7f7',
+    primary: '#2d2d2d',
     disabled: '#a8a8a8',
     secondary: '#533391',
     error: '#ef273e',
-    dark: '#2d2d2d'
+    dark: '#f7f7f7'
   },
   background: {
     gradient: 'linear-gradient(19deg, #845ec2 0%, #d65db1 100%)',

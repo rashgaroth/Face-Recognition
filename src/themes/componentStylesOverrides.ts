@@ -2,14 +2,6 @@ import { PaletteOptions } from '@mui/material'
 import { colors } from './colors'
 
 export const componentStylesOverrides = (palette: PaletteOptions) => ({
-  MuiCssBaseline: {
-    styleOverrides: {
-      body: {
-        backgroundColor: colors.background.paper,
-        background: colors.background.gradient
-      }
-    }
-  },
   MuiButton: {
     styleOverrides: {
       root: {

@@ -15,7 +15,7 @@ const ToggleTheme = () => {
   return (
     <AppBar
       position="static"
-      sx={{ borderRadius: 8, maxWidth: 230, bgcolor: 'secondary.light', position: 'relative', display: desktopDisplay }}>
+      sx={{ borderRadius: 8, maxWidth: 230, bgcolor: 'primary.main', position: 'relative', display: desktopDisplay }}>
       <Container maxWidth="xs">
         <Toolbar disableGutters>
           <Stack direction={'row'} alignItems="center" justifyContent={'space-between'} justifyItems="center" sx={{ width: '100%' }}>
@@ -24,9 +24,9 @@ const ToggleTheme = () => {
                 my: 1,
                 color: 'white',
                 borderRadius: 8,
-                bgcolor: mode === 'light' ? 'secondary.main' : 'secondary.light',
+                bgcolor: mode === 'light' ? 'primary.light' : 'primary.main',
                 '&:hover': {
-                  bgcolor: mode === 'light' ? 'secondary.dark' : 'secondary.main'
+                  bgcolor: mode === 'light' ? 'primary.dark' : 'primary.dark'
                 }
               }}>
               <Stack direction="row" spacing={1}>
@@ -39,9 +39,9 @@ const ToggleTheme = () => {
                 my: 1,
                 color: 'white',
                 borderRadius: 8,
-                bgcolor: mode === 'dark' ? 'secondary.main' : 'secondary.light',
+                bgcolor: mode === 'dark' ? 'primary.light' : 'primary.main',
                 '&:hover': {
-                  bgcolor: mode === 'dark' ? 'secondary.dark' : 'secondary.main'
+                  bgcolor: mode === 'dark' ? 'primary.dark' : 'primary.dark'
                 }
               }}>
               <Stack direction="row" spacing={1}>
