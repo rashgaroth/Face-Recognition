@@ -35,6 +35,7 @@ const WebcamWrapper = () => {
   const [vrmLoaded, setVrmLoaded] = useState(false)
   const [vrm, setVrm] = useState<VRM | null>(null)
   const [initialVrmDivSize, setInitialVrmDivSize] = useState(25)
+  const [renderThree, setRenderThree] = useState(false)
 
   const webcamRef = useRef<Webcam>(null)
   const canvasRef = useRef<HTMLCanvasElement>(null)
@@ -194,16 +195,11 @@ const WebcamWrapper = () => {
     }
   }
 
-  useEffect(() => {
-    if (initialVrmDivSize !== 0) {
-      console.log('append from effect')
-      // appendThree(vrm, divVrmRef.current)
-    }
-  }, [initialVrmDivSize])
-
-  useEffect(() => {
-    // setupVRM()
-  }, [])
+  const onVrmLoaded = async (vrm: VRM) => {
+    console.log('onLoad')
+    setVrm(vrm)
+    setVrmLoaded(true)
+  }
 
   useEffect(() => {
     if (vrmLoaded && vrm !== null) {
@@ -212,28 +208,22 @@ const WebcamWrapper = () => {
     }
   }, [vrm, vrmLoaded])
 
+  useEffect(() => {
+    if (webcamRef.current.video && canvasRef.current) {
+      setRenderThree(true)
+    }
+  }, [webcamRef.current, webcamRef.current])
+
   return (
-    <div>
-      <Webcam
-        ref={webcamRef}
-        audio={false}
-        className="rounded-xl"
-        style={{
-          position: 'absolute',
-          objectFit: 'cover',
-          transform: 'scale(-1, 1)',
-          width: '100%',
-          height: '100%'
-        }}
-        videoConstraints={{
-          facingMode: 'environment'
-        }}
-      />
+    <div className="w-full h-full">
+      {renderThree && <ThreeCanvas onVrmLoaded={onVrmLoaded} canvas={canvasRef.current} video={webcamRef.current.video} />}
       <canvas
         ref={canvasRef}
         style={{
           position: 'absolute',
+          top: 0,
           objectFit: 'cover',
+          // backgroundColor: 'blue',
           // zIndex: 9,
           // backgroundColor: 'red',
           width: '100%',
@@ -243,13 +233,29 @@ const WebcamWrapper = () => {
       <div ref={statsRef} />
       {/* @ts-ignore */}
       <animated.div ref={divVrmRef} style={frameSpringStyleProps}>
-        <ThreeCanvas vrm={vrmFile} />
+        <Webcam
+          ref={webcamRef}
+          audio={false}
+          className="rounded-xl"
+          style={{
+            position: 'absolute',
+            objectFit: 'cover',
+            transform: 'scale(-1, 1)',
+            width: '100%',
+            height: '100%',
+            zIndex: 10
+          }}
+          videoConstraints={{
+            facingMode: 'environment'
+          }}
+        />
       </animated.div>
       <div
         style={{
           position: 'absolute',
           top: 20,
-          left: 20
+          left: 20,
+          zIndex: 10
         }}
         className="bg-white p-2 rounded-full">
         <p className="text-black font-bold">Dwiyan Putra</p>

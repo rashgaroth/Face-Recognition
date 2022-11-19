@@ -56,7 +56,7 @@ const Room = () => {
           <Settings className="text-gray-700" />
         </Fab>
       </div>
-      <div className="absolute bottom-0 left-0 right-0">
+      <div className="absolute bottom-0 left-0 right-0 z-10">
         <div className="absolute m-auto bottom-0 left-0 right-0 grid place-items-center bg-white w-min px-10 py-5 rounded-t-xl">
           <Stack direction={'row'} spacing={2}>
             <div
