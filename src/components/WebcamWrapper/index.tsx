@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import '@tensorflow/tfjs-backend-webgl'
@@ -148,46 +150,6 @@ const WebcamWrapper = () => {
     await camera.start()
   }
 
-  const setupHolistic = async () => {
-    const holistic = new Holistic({
-      locateFile: (file) => {
-        return `https://cdn.jsdelivr.net/npm/@mediapipe/holistic@0.5.1635989137/${file}`
-      }
-    })
-
-    holistic.setOptions({
-      modelComplexity: 1,
-      smoothLandmarks: true,
-      minDetectionConfidence: 0.7,
-      minTrackingConfidence: 0.7,
-      refineFaceLandmarks: true,
-      selfieMode: true
-    })
-
-    holistic.onResults(initAndAnimate)
-
-    const camera = new Camera(webcamRef.current.video, {
-      onFrame: async () => {
-        await holistic.send({ image: webcamRef.current.video })
-      },
-      width: 640,
-      height: 480
-    })
-
-    camera.start()
-  }
-
-  const setupVRM = () => {
-    setLoading(true)
-    const scene = getScene()
-    loadVRM(scene, (vrm) => {
-      setInitialVrmDivSize(25)
-      setLoading(false)
-      setVrmLoaded(true)
-      setVrm(vrm)
-    })
-  }
-
   const initAndAnimate = (res: HolisticsResults) => {
     if (vrm) {
       drawCanvas(res, canvasRef.current)
@@ -200,13 +162,6 @@ const WebcamWrapper = () => {
     setVrm(vrm)
     setVrmLoaded(true)
   }
-
-  useEffect(() => {
-    if (vrmLoaded && vrm !== null) {
-      console.log(`Should be setupHolistics`)
-      // setupHolistic()
-    }
-  }, [vrm, vrmLoaded])
 
   useEffect(() => {
     if (webcamRef.current.video && canvasRef.current) {

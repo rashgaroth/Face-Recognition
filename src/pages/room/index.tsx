@@ -1,7 +1,7 @@
 import RightDrawer from '@component/RightDrawer'
 import WebcamWrapper from '@component/WebcamWrapper'
 import { classNames } from '@helper/ui'
-import { CallEnd, Mic, MicOff, ResetTv, Settings, VideocamOff, VideocamOutlined } from '@mui/icons-material'
+import { CallEnd, Cameraswitch, Mic, MicOff, ResetTv, Settings, VideocamOff, VideocamOutlined } from '@mui/icons-material'
 import { Fab, Stack } from '@mui/material'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -79,7 +79,7 @@ const Room = () => {
               {enableMic ? <Mic className="text-green-700" /> : <MicOff className="text-red-700" />}
             </div>
             <div className={classNames('p-2 rounded-full hover:cursor-pointer')} onClick={onResize}>
-              <ResetTv className="text-green-700" />
+              <Cameraswitch className="text-green-700" />
             </div>
           </Stack>
         </div>

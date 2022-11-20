@@ -4,9 +4,11 @@ import React, { Suspense, useEffect, useRef, useState } from 'react'
 import { Canvas, useThree, useFrame } from '@react-three/fiber'
 import { VRM } from '@pixiv/three-vrm'
 import { OrbitControls } from '@react-three/drei'
-import { animateVRM, drawCanvas, loadVRM } from '@helper/three'
+import { animateVRM, loadVRM } from '@helper/three'
 import { Camera } from '@mediapipe/camera_utils'
 import { Holistic, Results as HolisticsResults } from '@mediapipe/holistic'
+
+const deg2rad = (degrees) => degrees * (Math.PI / 180)
 
 function Avatar(props: { onVrmLoaded: (vrm: VRM) => void; video?: HTMLVideoElement; canvas?: HTMLCanvasElement }) {
   const [vrm, setVrm] = useState<VRM | null>(null)
@@ -44,7 +46,7 @@ function Avatar(props: { onVrmLoaded: (vrm: VRM) => void; video?: HTMLVideoEleme
 
   const initAndAnimate = (res: HolisticsResults) => {
     if (avatar.current) {
-      drawCanvas(res, props.canvas)
+      // drawCanvas(res, props.canvas)
       animateVRM(avatar.current, res, props.video)
     }
   }
@@ -52,21 +54,28 @@ function Avatar(props: { onVrmLoaded: (vrm: VRM) => void; video?: HTMLVideoEleme
   useEffect(() => {
     loadVRM(scene, (vrm) => {
       setVrm(vrm)
-      setupHolistic()
+      /* 
+        Uncomment this function if you want to activate the AI, this commented because 
+        i'm debugging the UI
+      */
+      // setupHolistic()
     })
   }, [props.video, props.canvas])
 
   useEffect(() => {
     if (vrm !== null) {
       avatar.current = vrm
-      vrm.lookAt.target = camera
+      avatar.current.lookAt.target = camera
+      camera.rotation.set(deg2rad(90), 90, 0)
+      camera.zoom = 2
+      vrm.humanoid.getNormalizedBone('hips').node.rotation.y = Math.PI
       props.onVrmLoaded(vrm)
     }
   }, [vrm, camera])
 
-  useFrame(({ gl }, delta) => {
+  useFrame(({ clock }, delta) => {
     if (vrm) {
-      vrm.update(delta)
+      avatar.current.update(delta)
     }
   })
 
@@ -75,10 +84,12 @@ function Avatar(props: { onVrmLoaded: (vrm: VRM) => void; video?: HTMLVideoEleme
 
 export default function ThreeCanvas(props: { onVrmLoaded: (vrm: VRM) => void; video?: HTMLVideoElement; canvas?: HTMLCanvasElement }) {
   return (
-    <Canvas camera={{ position: [5, 5, 5], fov: 25 }} style={{ width: '100%', height: '100%', zIndex: 9 }}>
-      <OrbitControls />
-      <ambientLight />
-      <pointLight position={[10, 10, 10]} />
+    <Canvas
+      camera={{ fov: 35, aspect: window.innerWidth / window.innerHeight, near: 0.1, far: 1000 }}
+      style={{ width: '100%', height: '100%', zIndex: 9 }}>
+      <OrbitControls target={[0.0, 1.4, 0.7]} rotation={[0, 0, 0]} />
+      <ambientLight position={[1.0, 1.0, 1.0]} />
+      <pointLight position={[1.0, 1.0, 1.0]} />
       <Suspense fallback={null}>
         <Avatar onVrmLoaded={props.onVrmLoaded} canvas={props.canvas} video={props.video} />
       </Suspense>
