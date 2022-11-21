@@ -1,3 +1,4 @@
+![alt text](https://github.com/rashgaroth/Face-Recognition/blob/169745e7e8af38161a061b579b1fb1485bdb864b/src/assets/gif/show.gif)
 # VRM Face Recognition
 
 A project that shown how AI works in web base, using react - vite - MUI 🤖
