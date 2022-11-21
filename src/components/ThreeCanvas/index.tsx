@@ -58,7 +58,7 @@ function Avatar(props: { onVrmLoaded: (vrm: VRM) => void; video?: HTMLVideoEleme
         Uncomment this function if you want to activate the AI, this commented because 
         i'm debugging the UI
       */
-      // setupHolistic()
+      setupHolistic()
     })
   }, [props.video, props.canvas])
 
